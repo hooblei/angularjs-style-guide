@@ -34,15 +34,11 @@ The principles we use to guide low-level decision making are:
    import template from './dialog.template.html!text';
   ```
 
-2. [Traceur](https://github.com/google/traceur-compiler)
+2. [Babel](https://github.com/babel/babel)
 
-  - _Why_: Traceur is a transpiler supported by SystemJS. It lets us use ECMAScript 6 features before they are implemented in browsers.
+  - _Why_: Babel is a transpiler supported by SystemJS. It lets us use ECMAScript 6 features before they are implemented in browsers.
 
-3. [Lo-Dash](https://github.com/lodash/lodash)
-
-  - _Why_: lodash is a utility library we use throughout our application. Our use of `_.extend` could be replaced by Angular’s built in method `angular.extend`.
-
-4. [AngularUI Router](https://github.com/angular-ui/ui-router/wiki)
+3. [AngularUI Router](https://github.com/angular-ui/ui-router/wiki)
 
   - _Why_: ui-router replaces Angular’s ngRoute module, and is built around states instead of URL routes, enabling nested views. Our use of `$stateProvider` could be replaced by `$routeProvider`.
 
@@ -58,30 +54,29 @@ We organise our code as follows:
 /app
   /components
     /alert
-      alert.directive.js
-      alert.directive.spec.js
-      alert.template.html
+      alert.js
+      alert-spec.js
+      alert.html
   /config
-    main.config.js
+    default.js
   /constants
-    api-url.constant.js
+    api-url.js
   /routes
     /customers
       /index
-        customers-index.template.html
-        customers-index.route.js
-        customers-index.controller.js
-        customers-index.e2e.js
+        customers-index.html
+        customers-index.js
+        customers-index-e2e.js
   /helpers
     /currency
       currency-filter.js
-      currency-filter.spec.js
+      currency-filter-spec.js
     /unit
     /e2e
   /services
     /creditors
       creditors.js
-      creditors.spec.js
+      creditors-spec.js
   bootstrap.js
   main.js
 /assets
@@ -91,6 +86,10 @@ We organise our code as follows:
 404.html
 index.html
 ```
+
+_Note_: When the definition for a component or route module feels to large for
+a single file, it may be a good indicator that the component or view is better
+split into further and smaller components.
 
 ### Specs (Unit/E2E)
 
@@ -114,7 +113,7 @@ Configures Providers. For example, `$locationProvider.html5Mode(true);`.
 
 ### Constants
 
-Although JavaScript does not yet support constants, we run our application through Traceur, which supports `const`.
+Although JavaScript does not yet support constants, we run our application through Babel, which supports `const`.
 
 The constant should be named in all uppercase if it's a global constant that will be used across many different functions.
 For example, `export const API_URL = 'https://api.gocardless.com'`.
